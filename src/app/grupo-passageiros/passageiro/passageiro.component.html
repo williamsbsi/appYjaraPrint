@@ -1,0 +1,62 @@
+<ion-header translucent>
+    <ion-toolbar color="primary">
+      <ion-title class="ion-text-center">Adicionar Passageiro</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="dismissModal2()"><ion-icon name="close"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+      <ion-item>
+        <ion-label>Documento</ion-label>
+        <ion-select interface="popover" [value]="optionSelect" required placeholder="Selecione" [selectedText]="optionSelect.nome" ok-text="Ok" cancel-text="Cancelar" (ionChange)="getDoc($event)">
+          <ion-select-option *ngFor="let item of tpDoc" [value]="item">{{ item.nome }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <form [formGroup]="passageiros_form" (ngSubmit)="onSubmit(passageiros_form.value)" >
+        <ion-item id="cpf" *ngIf="optionSelect.id === 5">
+          <ion-input (ionBlur)="buscarPassageiro($event.target.value)" type="text" inputmode="numeric" autofocus required clear-input placeholder="CPF" name="ndoc" formControlName="ndoc" [brmasker]="{form: passageiros_form.get('ndoc'), person: true}"></ion-input>
+        </ion-item>
+        <ion-item id="passporte" *ngIf="optionSelect.id === 3">
+          <ion-input (ionBlur)="buscarPassageiro($event.target.value)" type="text" autofocus required clear-input placeholder="Passaporte" name="ndoc" formControlName="ndoc"></ion-input>
+        </ion-item>
+        <ion-item id="rg" *ngIf="optionSelect.id === 1">
+          <ion-input (ionBlur)="buscarPassageiro($event.target.value)" type="text" inputmode="numeric" autofocus required clear-input placeholder="RG" name="ndoc" formControlName="ndoc"></ion-input>
+        </ion-item>
+        <ion-item id="tituloeleitor" *ngIf="optionSelect.id === 2">
+          <ion-input (ionBlur)="buscarPassageiro($event.target.value)" type="text" inputmode="numeric" autofocus required clear-input placeholder="Título de eleitor" name="ndoc" formControlName="ndoc"></ion-input>
+        </ion-item>
+        <ion-item id="cnh" *ngIf="optionSelect.id === 4">
+          <ion-input (ionBlur)="buscarPassageiro($event.target.value)" type="text" inputmode="numeric" autofocus required clear-input placeholder="CNH" name="ndoc" formControlName="ndoc"></ion-input>
+        </ion-item>
+        <ion-item id="passageiro-nome">      
+          <ion-input type="text" placeholder="Nome Completo" formControlName="nome" required></ion-input>
+        </ion-item>
+        
+        <ion-item id="passageiro-nascimento">      
+          <ion-input type="text" inputmode="numeric" placeholder="Data de Nascimento" formControlName="nascimento" required [brmasker]="{form: passageiros_form.get('nascimento'), mask:'00/00/0000', len:10}"></ion-input>
+          <ion-label>Nascimento</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Convênio</ion-label>
+            <ion-select interface="popover" [value]="optionConvenio" [selectedText]="optionConvenio.nome" name="convenio" formControlName="convenio" (ionChange)="getConvenio($event)">
+              <ion-select-option *ngFor="let convenio of convenios"  [value]="convenio" >{{ convenio.nome }} ({{convenio.desconto }}%)</ion-select-option>
+            </ion-select>
+          </ion-item>
+        <ion-item id="passageiro-email">      
+          <ion-input type="email" placeholder="E-mail" formControlName="email" ></ion-input>
+        </ion-item>
+        <ion-item id="passageiro-telefone">      
+          <ion-input type="text" inputmode="numeric" placeholder="Telefone" formControlName="telefone" [brmasker]="{form: passageiros_form.get('telefone'), phone: true}"></ion-input>
+        </ion-item>
+        <!--<ion-item>
+          <ion-label position="stacked">Cupom de Desconto</ion-label>
+            <ion-input type="text"  autocapitalize="characters" formControlName="voucher" [brmasker]="{form: passageiros_form.get('voucher'), mask: '0000-0000', len:9, userCaracters: true}"></ion-input>
+        </ion-item>-->
+        <ion-button id="avancar" color="dark" type="submit" expand="block full" [disabled]="!passageiros_form.valid">
+          Adicionar
+          <ion-icon slot="end" name="person-add" *ngIf="!disabledButton" ></ion-icon>
+          <ion-spinner name="bubbles" *ngIf="disabledButton"></ion-spinner>
+        </ion-button>
+      </form>
+  </ion-content>

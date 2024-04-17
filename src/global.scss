@@ -1,11 +1,154 @@
-// http://ionicframework.com/docs/theming/
-@import '~@ionic/angular/css/core.css';
-@import '~@ionic/angular/css/normalize.css';
-@import '~@ionic/angular/css/structure.css';
-@import '~@ionic/angular/css/typography.css';
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
 @import '~@ionic/angular/css/display.css';
-@import '~@ionic/angular/css/padding.css';
-@import '~@ionic/angular/css/float-elements.css';
-@import '~@ionic/angular/css/text-alignment.css';
-@import '~@ionic/angular/css/text-transformation.css';
-@import '~@ionic/angular/css/flex-utils.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+ion-content {       
+    --background: url(assets/img/isLhar3PRmzGGJ1jOna1_Lighthouse.jpg) no-repeat center !important;background-size:cover;
+}
+/*ion-toolbar{
+    --background: transparent;
+    --ion-color-base: transparent !important;
+}
+/* Remove bottom border on md */
+/*.header-md::after {
+    background-image: none;
+}*/
+
+/* Remove bottom border on ios */
+.header-ios ion-toolbar:last-child {
+    --border-width: 0;
+}
+ion-button{
+    --border-radius:0px;
+    
+    height: 50px;
+}
+ion-item{
+    margin-bottom: 5px;
+}
+.alert-danger{
+    color: #f04141;
+}
+
+ion-grid{
+    --ion-grid-column-padding:0px;
+}
+.grid-1{
+    --ion-grid-columns: 1;
+}
+.grid-2{
+    --ion-grid-columns: 2;
+}
+.grid-3{
+    --ion-grid-columns: 3;
+}
+.grid-4{
+    --ion-grid-columns: 4;
+}
+.grid-5{
+    --ion-grid-columns: 5;
+}
+.grid-6{
+    --ion-grid-columns: 6;
+}
+.grid-7{
+    --ion-grid-columns: 7;
+}
+.grid-8{
+    --ion-grid-columns: 8;
+}
+.grid-9{
+    --ion-grid-columns: 9;
+}
+.grid-10{
+    --ion-grid-columns: 10;
+}
+.grid-11{
+    --ion-grid-columns: 11;
+}
+.grid-12{
+    --ion-grid-columns: 12;
+}
+#mapa ion-row ion-col ion-button{
+    color: black;
+}
+
+#viagem ion-list{
+    background: none;
+    padding-top: 0 !important;
+}
+#viagem ion-list-header{
+    font-size: 18px;
+}
+ion-card{
+    background: #ffffffff !important;
+}
+ion-card{
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+ion-card-content{
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+ion-note{
+    padding-right: 0px !important;
+    margin-right: 5px !important;
+    padding-left: 0px !important;
+    margin-left: 0px !important;
+}
+#confirmacao ion-item{
+    margin-bottom: 0;
+}
+ion-item .item-native{
+    padding-left: 0 !important;
+    padding-inline-start: 0 !important;
+}
+ion-item .item-inner{
+    padding-right: 0 !important;
+    padding-inline-end: 0 !important;
+}
+
+#confirmacao ion-list{
+    padding-top: 0 !important;
+}
+#confirmacao ion-card-header{
+    padding-bottom: 6px !important;
+}
+#confirmacao ion-list{
+    font-size: 14px !important;
+}
+#confirmacao ion-label{
+    text-align: right !important;
+    font-size: 14px !important;
+}
+.button-full{
+    width: 100% !important;
+}

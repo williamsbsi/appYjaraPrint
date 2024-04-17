@@ -1,5 +1,7 @@
 {
   "name": "appYjara",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

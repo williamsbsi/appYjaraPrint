@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Confirmação</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" id="confirmacao">  
+  <ion-card id="viagemCard">
+    <ion-card-header>
+      <ion-card-subtitle class="ion-text-center">Resumo da Viagem</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item lines="full">
+          <ion-label>{{ viagem.origem }} - {{ viagem.destino }}</ion-label>
+          <ion-note slot="start">Trecho</ion-note>
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label>{{ viagem.nomeEmbarcacao }}</ion-label>
+          <ion-note slot="start">Embarcação</ion-note>
+        </ion-item>
+        <ion-item lines="full">
+            <ion-label>{{ viagem.data_embarque | date:'d/MM/y H:mm' }}</ion-label>
+            <ion-note slot="start">Data/Horário</ion-note>
+          </ion-item>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card id="passageiroCard" *ngFor="let passageiro of passageiros; let i = index" >
+      <ion-card-header>
+        <ion-card-subtitle class="ion-text-center">Passageiro {{ (i + 1)}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item lines="full">
+            <ion-label>{{ passageiro.nome }}</ion-label>
+            <ion-note slot="start">Nome</ion-note>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label>{{ passageiro.tdoc }}: {{ passageiro.ndoc}}</ion-label>
+            <ion-note slot="start">Documento</ion-note>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label>{{ passageiro.nascimento }}</ion-label>
+            <ion-note slot="start">Nascimento</ion-note>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label>{{ passageiro.comodo.nome }} {{ passageiro.comodo.numeracao }}</ion-label>
+            <ion-note slot="start">Cômodo</ion-note>
+          </ion-item>
+          <ion-item lines="full" *ngIf="passageiro.convenio.nome" >
+              <ion-label>{{ passageiro.convenio.nome }} ({{ passageiro.convenio.desconto }}%)</ion-label>
+              <ion-note slot="start">Convênio</ion-note>
+            </ion-item>
+        </ion-list>
+  
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card id="compradorCard" *ngIf="comprador">
+      <ion-card-header>
+        <ion-card-subtitle class="ion-text-center">Comprador</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item lines="full">
+            <ion-label>{{ comprador.xnome }}</ion-label>
+            <ion-note slot="start">Nome</ion-note>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label>{{ comprador.cpf_cnpj}}</ion-label>
+            <ion-note slot="start">Documento</ion-note>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label>{{ comprador.xlgr }}, {{comprador.nro}} - {{ comprador.bairro }}</ion-label>
+            <ion-note slot="start">Endereço</ion-note>
+          </ion-item>
+        </ion-list>
+  
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle class="ion-text-center">Pagamento</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+          <ion-item lines="full">
+            <ion-label>{{ valorComodo |  currency:'BRL':'symbol':'1.2-2' }}</ion-label>
+            <ion-note slot="start">Valor da Passagem</ion-note>
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label>{{ viagem.taxa_embarque |  currency:'BRL':'symbol':'1.2-2' }}</ion-label>
+            <ion-note slot="start">Taxa de Embarque</ion-note>
+          </ion-item>
+          <ion-item  lines="full">
+              <ion-label>{{ valorDesconto |  currency:'BRL':'symbol':'1.2-2'}}</ion-label>
+              <ion-note slot="start">Desconto</ion-note>
+            </ion-item>
+            <ion-item  lines="full">
+                <ion-label>{{ valorTotal |  currency:'BRL':'symbol':'1.2-2'}}</ion-label>
+                <ion-note slot="start">Valor a Pagar</ion-note>
+              </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle class="ion-text-center">Formas de Pagamento</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-item lines="full" *ngFor="let pagamento of pagamentos" >
+              <ion-label>{{ pagamento.valor |  currency:'BRL':'symbol':'1.2-2' }}</ion-label>
+              <ion-note slot="start">{{ pagamento.nome }} <span *ngIf="pagamento.parcela > 0">({{pagamento.parcela}}x)</span></ion-note>
+            </ion-item>
+            <ion-item lines="full">
+              <ion-label>{{ troco |  currency:'BRL':'symbol':'1.2-2' }}</ion-label>
+              <ion-note slot="start">Troco</ion-note>
+            </ion-item>
+        </ion-card-content>
+      </ion-card>
+  
+  <ion-button id="btn-confirmar" color="primary" expand="block full" (click)="onConfirmar(1)" disabled="{{ disabledButton }}">
+    Confirmar <ion-spinner name="bubbles" *ngIf="disabledButton"></ion-spinner>
+  </ion-button>
+  <ion-button id="btn-confirmar" color="primary" expand="block full" (click)="onConfirmar(2)" disabled="{{ disabledButton }}">
+    Confirmar & 2 Via<ion-spinner name="bubbles" *ngIf="disabledButton"></ion-spinner>
+  </ion-button>
+  <ion-button id="btn-cancelar"  color="dark" expand="block full" (click)="onCancelar()">
+      Cancelar
+    </ion-button>
+</ion-content>

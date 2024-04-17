@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Comprador</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" id="comprador">
+<form [formGroup]="compradors_form" (ngSubmit)="onSubmit(compradors_form.value)" >
+  <ion-item>
+    <ion-label>Estrangeiro?</ion-label>
+    <ion-toggle color="primary" (ionChange)="changeEstrangeiro()" formControlName="estrangeiro" name="estrangeiro" slot="end" name="estrangeiro" value="true"></ion-toggle>
+  </ion-item> 
+  <ion-item id="comprador-cpf" *ngIf="!estrangeiro">
+    <ion-input type="text" autofocus="true" placeholder="CPF/CNPJ" (ionBlur)="buscarComprador($event.target.value)" inputmode="numeric" formControlName="cpf_cnpj" name="cpf_cnpj" [brmasker]="{form: compradors_form.get('cpf_cnpj'), person: true}"></ion-input>      
+  </ion-item>
+  <ion-item id="comprador-passaporte" *ngIf="estrangeiro">
+    <ion-input type="text" autofocus="true" placeholder="Passaporte" (ionBlur)="buscarComprador($event.target.value)" formControlName="cpf_cnpj" name="cpf_cnpj"></ion-input>
+  </ion-item>
+  <ion-item id="comprador-nome">      
+    <ion-input type="text" placeholder="Nome" formControlName="xnome" required></ion-input>
+  </ion-item>
+  <ion-item id="comprador-xlgr">      
+    <ion-input type="text" placeholder="Logradouro" formControlName="xlgr" required></ion-input>
+  </ion-item>
+  <ion-item id="comprador-nro">      
+    <ion-input type="text" placeholder="Número" formControlName="nro" required></ion-input>
+    <ion-label>Número</ion-label>
+  </ion-item>
+  <ion-item id="comprador-bairro">      
+    <ion-input type="text" placeholder="Bairro" formControlName="bairro" required></ion-input>
+    <ion-label>Bairro</ion-label>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label>Estado</ion-label>
+    <ion-select placeholder="Selecione" formControlName="uf" (ionChange)="getMunicipio($event.target.value)" required cancel-text="Cancelar" ok-text="Selecionar">
+      <ion-select-option *ngFor="let uf of estados" value="{{ uf.uf }}">{{ uf.uf }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Município</ion-label>
+    <ion-select placeholder="Selecione" formControlName="cmun" required cancel-text="Cancelar" ok-text="Selecionar">
+      <ion-select-option *ngFor="let cidade of municipios" value="{{ cidade.codigo }}">{{ cidade.municipio }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+ 
+  <ion-button id="avancar" color="primary" type="submit" expand="block full" [disabled]="!compradors_form.valid">
+    Avançar
+    <ion-icon slot="end" name="ios-arrow-dropright-circle" *ngIf="!disabledButton"></ion-icon>
+    <ion-spinner name="bubbles" *ngIf="disabledButton"></ion-spinner>
+  </ion-button>
+</form>
+
+</ion-content>

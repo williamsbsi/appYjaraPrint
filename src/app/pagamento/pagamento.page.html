@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pagamento</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">{{ valorTotal | currency:'BRL':'symbol':'1.2-2' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" id="pagamento"> 
+    <div *ngFor="let forma of formasPagamento">
+      <h3>{{ forma.nome }}</h3>
+      <ion-item>
+        <ion-label position="floating">Valor do Pagamento</ion-label>
+        <ion-input inputmode="numeric" [(ngModel)]="forma.valor" (ionInput)="forma.valor = money($event)" type="text"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="isCredito(forma)">
+        <ion-label position="floating">Nº de Parcelas</ion-label>
+        <ion-input inputmode="numeric" type="number"  [(ngModel)]="forma.parcela"></ion-input>
+      </ion-item>
+    </div>
+    
+      <ion-button id="avancar" color="primary" type="submit" expand="block full" (click)='getPagamento()'>
+        Avançar
+        <ion-icon slot="end" name="ios-arrow-dropright-circle"></ion-icon>
+      </ion-button>
+      <ion-button id="comprador" color="dark" type="submit" expand="block full" (click)='getAddComprador()'>
+        Add Comprador
+        <ion-icon slot="end" name="ios-arrow-dropright-circle"></ion-icon>
+      </ion-button>
+</ion-content>

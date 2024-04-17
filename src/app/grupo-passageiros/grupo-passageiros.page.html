@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>Passageiros </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding" id="grupoPassageiros">
+      <ion-fab (click)='modalPassageiro()' vertical="top" horizontal="end" slot="fixed" edge>
+          <ion-fab-button color="dark">
+            <ion-icon name="person-add"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+    <ion-item *ngFor="let passageiro of passageiros" >
+      <ion-label>
+        <h2>{{ passageiro.nome }}</h2>
+        <p>{{ passageiro.tdoc }}: {{ passageiro.ndoc }}</p>
+        <p>Data de Nascimento: {{ passageiro.nascimento}}</p>
+
+        <p *ngIf="passageiro.convenio.nome">
+          {{ passageiro.convenio.nome }} ({{ passageiro.convenio.desconto }}%)
+        </p>
+      </ion-label>
+      <ion-button fill="clear" (click)="removerPassageiro(passageiro)">
+          <ion-icon color="danger" name="trash" slot="end"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-button id="avancar" color="primary" (click)="avancar()" expand="block full" *ngIf="passageiros.length > 0" >
+        Avançar
+        <ion-icon slot="end" name="ios-arrow-dropright-circle"></ion-icon>
+      </ion-button>
+  </ion-content>

@@ -1,0 +1,35 @@
+<ion-header translucent>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+          </ion-buttons>
+      <ion-title>Cômodos</ion-title>
+    </ion-toolbar>
+    <ion-toolbar color="primary" class="viagem">
+    <ion-title class="ion-text-center" *ngIf="isLancha">
+      {{ passageiro.nome }}<br>
+      Total de idoso(s): {{ qtdIdoso }}
+    </ion-title>
+  </ion-toolbar>
+  </ion-header>
+<ion-content>
+      <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="!comodos">
+        <ion-spinner name="bubbles"></ion-spinner>
+      </ion-row> 
+      <ion-row class="ion-padding ion-justify-content-center ion-align-items-center" *ngIf="!isLancha">
+        <ion-button class="button-full" expand="block full" *ngFor="let comodo of comodos" (click)='getConfirmacao(comodo)'>
+          {{ comodo.nome }} {{ comodo.numeracao }} <span *ngIf="!isLancha"> ({{ comodo.quantidade }}) {{comodo.valor | currency:'BRL':'symbol':'1.2-2' }}</span>
+        </ion-button>
+      </ion-row>
+      <!--<ion-badge *ngFor="let cor of c.cores" [ngStyle]="{'backgroundColor': cor.cor}">&nbsp;</ion-badge>-->
+      <ion-grid id="mapa" *ngIf="isLancha" class="grid-{{ viagem.linhasEmbarcacao }}">
+          <ion-row class="ion-justify-content-center ion-align-items-center" *ngFor="let comodo of comodos" >
+              <ion-col size="1" class="ion-no-padding" *ngFor="let c of comodo">
+                <ion-button *ngIf="c.status == 'coluna'"  expand="block full" color="light"></ion-button>
+                <ion-button *ngIf="c.status == 'reservado'"  expand="block full" color="warning" (click)='getConfirmacao(c)'>{{ c.numeracao}}</ion-button>
+                <ion-button *ngIf="c.status == 'livre'"  expand="block full" color="success" (click)='getConfirmacao(c)'>{{ c.numeracao}}</ion-button>
+                <ion-button *ngIf="c.status == 'ocupado'"  expand="block full" color="danger">{{ c.numeracao}}</ion-button>
+              </ion-col>          
+            </ion-row>
+      </ion-grid>
+</ion-content>

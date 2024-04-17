@@ -1,0 +1,36 @@
+<ion-header #header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button (click)="presentPopover($event)">
+        <ion-icon name="md-more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Escolha uma viagem</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" id="viagem" appHideHeader [scrollEvents]="true" [header]="header">
+  
+  <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="!trechos">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </ion-row> 
+  <ion-list *ngFor="let trecho of trechos">
+    <ion-list-header class="ion-text-center">
+        <ion-badge>{{ trecho.data | date:'d/MM' }}</ion-badge>
+    </ion-list-header>
+    <ion-item *ngFor="let viagem of trecho.trechos" (click)='avancar(viagem)'  button="true" class="ion-text-wrap" color="light"  expand="block">
+      <ion-label class="ion-text-center">
+        <h2>{{ viagem.origem }} - {{ viagem.destino }}</h2>
+        <h2>{{ (viagem.valor + viagem.taxa_embarque) | currency:'BRL':'symbol-narrow':'1.2-2'}} - ({{ viagem.data_embarque | date:'d/MM/y H:mm' }}) </h2>
+        <p>{{ viagem.nomeEmbarcacao }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Carregando">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+    
+  
+</ion-content>

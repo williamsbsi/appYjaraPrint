@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Formas de Pagamento</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" id="trechos">
+  
+      <ion-item *ngFor="let forma of formas">
+          <ion-label>{{ forma.nome }}</ion-label>
+          <ion-checkbox [(ngModel)]="forma.checked" color="dark" (ionChange)="checkbox(forma)"></ion-checkbox>
+      </ion-item>
+      <ion-item *ngIf="xFormaOutro" >
+        <ion-label position="floating">Qual forma de pagamento?</ion-label>
+        <ion-input [(ngModel)]="xForma"></ion-input>
+      </ion-item>
+
+      <ion-button id="avancar" color="primary" type="submit" expand="block full" (click)='getFormaPagamento()'>
+        Avançar
+        <ion-icon slot="end" name="ios-arrow-dropright-circle"></ion-icon>
+      </ion-button>
+</ion-content>

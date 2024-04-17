@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>Impressora</ion-title>
+    </ion-toolbar>
+  </ion-header>
+ <ion-content class="ion-padding" fullscreen id="convenios" scroll="false">
+    
+
+  <ion-button class="submit-button" (click)="listPairedDevices()" color="primary" expand="block full">
+    <ion-icon name="refresh"></ion-icon>&nbsp;Procurar Dispositivos
+  </ion-button>
+
+  
+    <ion-row>
+      <ion-col>
+        
+          <ion-radio-group [(ngModel)]="pairedDeviceID" *ngIf="listToggle">
+            <ion-item *ngFor="let i of pairedList;let j=index" >
+              <ion-label>{{i.name}}</ion-label>
+              <ion-radio slot="start" value="{{ j }}"></ion-radio>
+            </ion-item>
+        
+            
+          </ion-radio-group>
+        
+      </ion-col>
+    </ion-row>
+    <ion-button color="primary" expand="block full"  (click)="selectDevice()" class="submit-button" *ngIf="listToggle">
+      <ion-icon name="bluetooth"></ion-icon>&nbsp;Conecte dispositivos Bluetooth
+    </ion-button>
+  
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Texto para Imprimir</ion-label>
+      <ion-input type="text" name="dataSend" [(ngModel)]="dataSend"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button color="dark" expand="block full" class="submit-button" (click)="sendData()">
+    <ion-icon name="send"></ion-icon>&nbsp;Imprimir Teste
+  </ion-button>
+  <ion-button color="dark" expand="block full" class="submit-button" (click)="convertDataURIToBinary()">
+    <ion-icon name="send"></ion-icon>&nbsp;Imprimir Teste Base64
+  </ion-button>
+</ion-content>

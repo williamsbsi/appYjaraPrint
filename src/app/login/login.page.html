@@ -1,0 +1,33 @@
+<ion-content class="ion-padding" class="loginPage">
+  <ion-grid style="height: 100%">
+    <ion-row class="ion-justify-content-center ion-align-items-center" style="height: 95%">
+      <ion-grid class="login-container" style="width: 100%">
+        <form autocomplete="off" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+          <ion-row class="ion-align-items-center">
+            <ion-col class="ion-text-center">
+              <h2>Yjara</h2>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+
+              <ion-item>
+                <ion-input placeholder="E-mail" name="email" type="email" required formControlName="email"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input placeholder="Senha" name="password" type="password" required formControlName="password"></ion-input>
+              </ion-item>
+
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+
+              <ion-button type="submit" expand="block" [disabled]="!loginForm.valid">ENTRAR</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>        
+      </ion-grid>
+    </ion-row>
+  </ion-grid>
+</ion-content>
